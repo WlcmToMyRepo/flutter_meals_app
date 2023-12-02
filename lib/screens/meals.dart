@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:meals/data/dummy_data.dart';
+// import 'package:meals/experiment/stack_widget.dart';
+import 'package:meals/widgets/meals_item.dart';
 import 'package:meals/models/meal.dart';
 
 class MealsScreen extends StatelessWidget {
@@ -8,6 +11,7 @@ class MealsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //when there is no data in mealsdata
     Widget body = Center(
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -30,16 +34,11 @@ class MealsScreen extends StatelessWidget {
         ],
       ),
     );
-
+    // when there is data in meals data
     if (meals.isNotEmpty) {
       body = ListView.builder(
-        itemCount: meals.length,
-        itemBuilder: (context, index) => Text(
-          meals[index].title,
-          style: const TextStyle(
-            color: Colors.white,
-          ),
-        ),
+        itemCount: dummyMeals.length,
+        itemBuilder: (context, index) => MealsItem(meal: dummyMeals[index]),
       );
     }
     return Scaffold(

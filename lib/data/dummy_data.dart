@@ -5,37 +5,37 @@ import 'package:meals/models/meal.dart';
 //CATEGORY DATA
 final List<Category> data = [
   const Category(
-    id: 'i1',
+    id: 'c1',
     title: "Spanish",
     color: Colors.blue,
   ),
   Category(
-    id: 'i1',
+    id: 'c2',
     title: "Italian",
     color: Colors.red.shade400,
   ),
   const Category(
-    id: 'i1',
+    id: 'c3',
     title: "Indian",
     color: Colors.blue,
   ),
   const Category(
-    id: 'i1',
+    id: 'c4',
     title: "Chineese",
     color: Colors.grey,
   ),
   const Category(
-    id: 'i1',
+    id: 'c5',
     title: "Mexican",
     color: Colors.orangeAccent,
   ),
   const Category(
-    id: 'i1',
+    id: 'c6',
     title: "Canadian",
     color: Colors.yellow,
   ),
   const Category(
-    id: 'i1',
+    id: 'c30',
     title: "Mangolian",
     color: Colors.purple,
   ),

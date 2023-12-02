@@ -3,12 +3,14 @@ import 'package:meals/models/categories.dart';
 
 class GridViewItem extends StatelessWidget {
   final Category data;
-  const GridViewItem({super.key, required this.data});
+  final void Function() navigateFunction;
+  const GridViewItem(
+      {super.key, required this.data, required this.navigateFunction});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: navigateFunction,
       splashColor: Theme.of(context).colorScheme.primary,
       borderRadius: BorderRadius.circular(16),
       child: Container(
