@@ -4,6 +4,7 @@ import 'package:meals/models/meal.dart';
 import 'package:meals/screens/categories.dart';
 import 'package:meals/screens/meals.dart';
 
+//this widget is home screen of the app with bottom navigation bar
 class TabsScreen extends StatefulWidget {
   const TabsScreen({super.key});
 
@@ -16,6 +17,9 @@ class _TabsScreenState extends State<TabsScreen> {
   int _selectedIndex = 0;
   String selectedTitle = "Categories";
 
+  //this method allows us to mark meals as favorites
+  //we need to pass this method to the child widgets
+  //in the meal details screen we need to exicute the method
   void toggleFavourite(Meal meal) {
     print('I AM CALLED >>>>>>>>>>>>>>>');
     if (_favouriteMeals.contains(meal)) {

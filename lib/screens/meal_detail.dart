@@ -4,6 +4,7 @@ import 'package:meals/models/meal.dart';
 // this widget will display the data of selected meal like name image ...
 class MealDetailsScreen extends StatefulWidget {
   final Meal meal;
+  //method to access toggle function of tab screen
   final void Function(Meal) toggleFavourite;
   const MealDetailsScreen(
       {super.key, required this.meal, required this.toggleFavourite});
@@ -30,6 +31,7 @@ class _MealDetailsScreenState extends State<MealDetailsScreen> {
   void toggle() {
     setState(() {
       isFavourite = !isFavourite;
+      //we are calling the tab screen's toggle method here
       widget.toggleFavourite(widget.meal);
     });
   }
