@@ -41,9 +41,12 @@ class _MealDetailsScreenState extends State<MealDetailsScreen> {
     return Scaffold(
       appBar: AppBar(title: Text(widget.meal.title), actions: [
         IconButton(
-            onPressed: toggle,
-            icon: Icon(Icons.star,
-                color: isFavourite ? Colors.yellow : Colors.white))
+          onPressed: toggle,
+          icon: Icon(
+            Icons.star,
+            color: isFavourite ? Colors.yellow : Colors.white,
+          ),
+        ),
       ]),
       body: ListView(
         children: [
@@ -52,10 +55,12 @@ class _MealDetailsScreenState extends State<MealDetailsScreen> {
           Column(
             children: [
               for (String ings in widget.meal.ingredients)
-                Text(ings,
-                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          color: Colors.white,
-                        ))
+                Text(
+                  ings,
+                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                        color: Colors.white,
+                      ),
+                ),
             ],
           ),
           heading(context, "Steps"),
@@ -64,11 +69,13 @@ class _MealDetailsScreenState extends State<MealDetailsScreen> {
             child: Column(
               children: [
                 for (String step in widget.meal.steps)
-                  Text(step,
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                            color: Colors.white,
-                          ))
+                  Text(
+                    step,
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                          color: Colors.white,
+                        ),
+                  ),
               ],
             ),
           )
@@ -96,8 +103,11 @@ class _FavButtonState extends State<FavButton> {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-        onPressed: toggle,
-        icon: Icon(Icons.star,
-            color: isFavourite ? Colors.yellow : Colors.white));
+      onPressed: toggle,
+      icon: Icon(
+        Icons.star,
+        color: isFavourite ? Colors.yellow : Colors.white,
+      ),
+    );
   }
 }

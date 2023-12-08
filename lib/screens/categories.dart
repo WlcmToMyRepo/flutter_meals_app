@@ -9,14 +9,17 @@ class CategoriesScreen extends StatelessWidget {
   final List<Category> categories;
   final void Function(Meal meal)
       toggleFavourite; ////method to access toggle function of tab screen
+  final List<Meal> meals;
   const CategoriesScreen(
-      {super.key, required this.categories, required this.toggleFavourite});
+      {super.key,
+      required this.categories,
+      required this.toggleFavourite,
+      required this.meals});
 
   //This will navigate to meals screeen
   void _selectCategory(BuildContext context, Category category) {
-    final filteredMealsOnCategory = dummyMeals
-        .where((meal) => meal.categories.contains(category.id))
-        .toList();
+    final filteredMealsOnCategory =
+        meals.where((meal) => meal.categories.contains(category.id)).toList();
     Navigator.of(context).push(MaterialPageRoute(
         builder: (ctx) => MealsScreen(
               title: category.title,

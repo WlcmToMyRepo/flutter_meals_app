@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:meals/data/dummy_data.dart';
 import 'package:meals/screens/meal_detail.dart';
-// import 'package:meals/experiment/stack_widget.dart';
 import 'package:meals/widgets/meals_item.dart';
 import 'package:meals/models/meal.dart';
 

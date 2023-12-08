@@ -31,7 +31,7 @@ class MealsItem extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         margin: const EdgeInsets.all(10),
         clipBehavior: Clip.hardEdge,
-        elevation: 100,
+        elevation: 1,
         child: Stack(children: [
           FadeInImage(
             placeholderFit: BoxFit.contain,
