@@ -6,13 +6,12 @@ import 'package:meals/models/meal.dart';
 class MealsScreen extends StatelessWidget {
   final String? title;
   final List<Meal> meals;
-  final void Function(Meal)
-      toggleFunction; //method to access toggle function of tab screen
-  const MealsScreen(
-      {super.key,
-      this.title,
-      required this.meals,
-      required this.toggleFunction});
+  //method to access toggle function of tab screen
+  const MealsScreen({
+    super.key,
+    this.title,
+    required this.meals,
+  });
 
   void _selectMeal(BuildContext context, Meal meal) {
     Navigator.push(
@@ -20,7 +19,6 @@ class MealsScreen extends StatelessWidget {
         MaterialPageRoute(
             builder: (ctx) => MealDetailsScreen(
                   meal: meal,
-                  toggleFavourite: toggleFunction,
                 )));
   }
 

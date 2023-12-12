@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:meals/screens/tabs.dart';
 
@@ -13,11 +14,11 @@ final themeData = ThemeData(
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // final prefs = await SharedPreferences.getInstance();
-  runApp(
-    MaterialApp(
+  runApp(ProviderScope(
+    child: MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: themeData,
       home: const TabsScreen(),
     ),
-  );
+  ));
 }

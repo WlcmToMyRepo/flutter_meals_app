@@ -3,29 +3,26 @@ import 'package:meals/models/categories.dart';
 import 'package:meals/models/meal.dart';
 import 'package:meals/screens/meals.dart';
 import 'package:meals/widgets/gridview_item.dart';
-import 'package:meals/data/dummy_data.dart';
 
 class CategoriesScreen extends StatelessWidget {
   final List<Category> categories;
-  final void Function(Meal meal)
-      toggleFavourite; ////method to access toggle function of tab screen
+  ////method to access toggle function of tab screen
   final List<Meal> meals;
   const CategoriesScreen(
-      {super.key,
-      required this.categories,
-      required this.toggleFavourite,
-      required this.meals});
+      {super.key, required this.categories, required this.meals});
 
   //This will navigate to meals screeen
   void _selectCategory(BuildContext context, Category category) {
     final filteredMealsOnCategory =
         meals.where((meal) => meal.categories.contains(category.id)).toList();
-    Navigator.of(context).push(MaterialPageRoute(
+    Navigator.of(context).push(
+      MaterialPageRoute(
         builder: (ctx) => MealsScreen(
-              title: category.title,
-              meals: filteredMealsOnCategory,
-              toggleFunction: toggleFavourite,
-            )));
+          title: category.title,
+          meals: filteredMealsOnCategory,
+        ),
+      ),
+    );
   }
 
   @override
@@ -39,14 +36,15 @@ class CategoriesScreen extends StatelessWidget {
           childAspectRatio: 3 / 2),
       itemCount: categories.length,
       itemBuilder: (context, index) => GridViewItem(
-          //Navigates to mealsccreen
-          data: categories[index],
-          navigateFunction: () {
-            _selectCategory(
-                context,
-                categories[
-                    index]); //this func call will return selecterCategoryData
-          }),
+        //Navigates to mealsccreen
+        data: categories[index],
+        navigateFunction: () {
+          _selectCategory(
+            context,
+            categories[index],
+          ); //this func call will return selecterCategoryData
+        },
+      ),
     );
   }
 }

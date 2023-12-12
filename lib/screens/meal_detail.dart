@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:meals/models/meal.dart';
+import 'package:meals/providers/favourite_meal_provider.dart';
 
 // this widget will display the data of selected meal like name image ...
-class MealDetailsScreen extends StatefulWidget {
+class MealDetailsScreen extends ConsumerStatefulWidget {
   final Meal meal;
   //method to access toggle function of tab screen
-  final void Function(Meal) toggleFavourite;
-  const MealDetailsScreen(
-      {super.key, required this.meal, required this.toggleFavourite});
+  const MealDetailsScreen({super.key, required this.meal});
 
   @override
-  State<MealDetailsScreen> createState() => _MealDetailsScreenState();
+  ConsumerState<MealDetailsScreen> createState() => _MealDetailsScreenState();
 }
 
-class _MealDetailsScreenState extends State<MealDetailsScreen> {
+class _MealDetailsScreenState extends ConsumerState<MealDetailsScreen> {
   Widget heading(BuildContext context, title) {
     return Container(
       padding: const EdgeInsets.all(10),
@@ -27,27 +27,12 @@ class _MealDetailsScreenState extends State<MealDetailsScreen> {
     );
   }
 
-  bool isFavourite = false;
-  void toggle() {
-    setState(() {
-      isFavourite = !isFavourite;
-      //we are calling the tab screen's toggle method here
-      widget.toggleFavourite(widget.meal);
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(widget.meal.title), actions: [
-        IconButton(
-          onPressed: toggle,
-          icon: Icon(
-            Icons.star,
-            color: isFavourite ? Colors.yellow : Colors.white,
-          ),
-        ),
-      ]),
+      appBar: AppBar(
+          title: Text(widget.meal.title),
+          actions: [FavButton(meal: widget.meal)]),
       body: ListView(
         children: [
           Image.network(widget.meal.imageUrl),
@@ -85,25 +70,28 @@ class _MealDetailsScreenState extends State<MealDetailsScreen> {
   }
 }
 
-class FavButton extends StatefulWidget {
-  const FavButton({super.key});
+class FavButton extends ConsumerStatefulWidget {
+  final Meal meal;
+
+  const FavButton({super.key, required this.meal});
 
   @override
-  State<FavButton> createState() => _FavButtonState();
+  ConsumerState<FavButton> createState() => _FavButtonState();
 }
 
-class _FavButtonState extends State<FavButton> {
-  bool isFavourite = false;
-  void toggle() {
-    setState(() {
-      isFavourite = !isFavourite;
-    });
-  }
-
+class _FavButtonState extends ConsumerState<FavButton> {
   @override
   Widget build(BuildContext context) {
+    bool isFavourite =
+        ref.read(favouriteMealProvider.notifier).mealIsFavourite(widget.meal);
     return IconButton(
-      onPressed: toggle,
+      onPressed: () {
+        ref.read(favouriteMealProvider.notifier).toggleFavourite(widget.meal);
+        isFavourite = ref
+            .watch(favouriteMealProvider.notifier)
+            .mealIsFavourite(widget.meal);
+        setState(() {});
+      },
       icon: Icon(
         Icons.star,
         color: isFavourite ? Colors.yellow : Colors.white,

@@ -6,37 +6,52 @@ import 'package:meals/models/meal.dart';
 final List<Category> data = [
   const Category(
     id: 'c1',
-    title: "Spanish",
+    title: "Italian",
     color: Colors.blue,
   ),
   Category(
     id: 'c2',
-    title: "Italian",
+    title: "Quick & Easy",
     color: Colors.red.shade400,
   ),
   const Category(
     id: 'c3',
-    title: "Indian",
+    title: "Hamburgers",
     color: Colors.blue,
   ),
   const Category(
     id: 'c4',
-    title: "Chineese",
+    title: "German",
     color: Colors.grey,
   ),
   const Category(
     id: 'c5',
-    title: "Mexican",
+    title: "Light & Lovely",
     color: Colors.orangeAccent,
   ),
   const Category(
     id: 'c6',
-    title: "Canadian",
+    title: "Exotic",
     color: Colors.yellow,
   ),
   const Category(
-    id: 'c30',
-    title: "Mangolian",
+    id: 'c7',
+    title: "Breakfast",
+    color: Colors.purple,
+  ),
+  const Category(
+    id: 'c8',
+    title: "Asian",
+    color: Colors.purple,
+  ),
+  const Category(
+    id: 'c9',
+    title: "French",
+    color: Colors.purple,
+  ),
+  const Category(
+    id: 'c7',
+    title: "Summer",
     color: Colors.purple,
   ),
 ];

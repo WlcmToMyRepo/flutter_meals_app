@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:meals/data/dummy_data.dart';
 import 'package:meals/models/meal.dart';
+import 'package:meals/providers/favourite_meal_provider.dart';
 import 'package:meals/screens/categories.dart';
 import 'package:meals/screens/filter.dart';
 import 'package:meals/screens/meals.dart';
 import 'package:meals/widgets/app_drawer.dart';
+import 'package:meals/providers/meal_provider.dart';
 
 //default filter
 
@@ -16,15 +19,14 @@ const Map<Filter, bool> kMealsFilter = {
 };
 
 //this widget is home screen of the app with bottom navigation bar
-class TabsScreen extends StatefulWidget {
+class TabsScreen extends ConsumerStatefulWidget {
   const TabsScreen({super.key});
 
   @override
-  State<TabsScreen> createState() => _TabsScreenState();
+  ConsumerState<TabsScreen> createState() => _TabsScreenState();
 }
 
-class _TabsScreenState extends State<TabsScreen> {
-  final List<Meal> _favouriteMeals = [];
+class _TabsScreenState extends ConsumerState<TabsScreen> {
   int _selectedIndex = 0;
   String selectedTitle = "Categories";
   Map<Filter, bool> selectedFilter = kMealsFilter;
@@ -53,22 +55,6 @@ class _TabsScreenState extends State<TabsScreen> {
   //this method allows us to mark meals as favorites
   //we need to pass this method to the child widgets
   //in the meal details screen we need to exicute the method
-  void toggleFavourite(Meal meal) {
-    print('I AM CALLED >>>>>>>>>>>>>>>');
-    if (_favouriteMeals.contains(meal)) {
-      _favouriteMeals.remove(meal);
-      showNotification("meal removed from favourites");
-    } else {
-      print('removed meal $meal');
-      _favouriteMeals.add(meal);
-      showNotification("meal added to favourites");
-    }
-    print('FAVOURITE MEALS --->  | $_favouriteMeals |');
-    for (Meal meal in _favouriteMeals) {
-      print(meal.title.toUpperCase());
-    }
-    setState(() {});
-  }
 
   void selectTab(index) {
     setState(() {
@@ -78,7 +64,8 @@ class _TabsScreenState extends State<TabsScreen> {
 
   //this method wil lapply filter on dummyMeals and return filtered meals
   List<Meal> get getFilteredMeals {
-    return dummyMeals.where((meal) {
+    final meals = ref.watch(mealsProvider);
+    return meals.where((meal) {
       //need to filter gluten free
       if (selectedFilter[Filter.glutenFree]! && !meal.isGlutenFree) {
         return false;
@@ -101,13 +88,11 @@ class _TabsScreenState extends State<TabsScreen> {
     print("LACTOS FREE MEAL: >>>> $getFilteredMeals");
     Widget tabPage = CategoriesScreen(
       categories: data,
-      toggleFavourite: toggleFavourite,
       meals: getFilteredMeals,
     );
     if (_selectedIndex == 1) {
       tabPage = MealsScreen(
-        meals: _favouriteMeals,
-        toggleFunction: toggleFavourite,
+        meals: ref.watch(favouriteMealProvider),
       );
       selectedTitle = 'Favourites';
     }
