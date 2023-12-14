@@ -4,16 +4,11 @@ import 'package:meals/models/meal.dart';
 import 'package:meals/providers/favourite_meal_provider.dart';
 
 // this widget will display the data of selected meal like name image ...
-class MealDetailsScreen extends ConsumerStatefulWidget {
+
+class MealDetailScreen extends ConsumerWidget {
   final Meal meal;
-  //method to access toggle function of tab screen
-  const MealDetailsScreen({super.key, required this.meal});
+  const MealDetailScreen({super.key, required this.meal});
 
-  @override
-  ConsumerState<MealDetailsScreen> createState() => _MealDetailsScreenState();
-}
-
-class _MealDetailsScreenState extends ConsumerState<MealDetailsScreen> {
   Widget heading(BuildContext context, title) {
     return Container(
       padding: const EdgeInsets.all(10),
@@ -28,18 +23,16 @@ class _MealDetailsScreenState extends ConsumerState<MealDetailsScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      appBar: AppBar(
-          title: Text(widget.meal.title),
-          actions: [FavButton(meal: widget.meal)]),
+      appBar: AppBar(title: Text(meal.title), actions: [FavButton(meal: meal)]),
       body: ListView(
         children: [
-          Image.network(widget.meal.imageUrl),
+          Image.network(meal.imageUrl),
           heading(context, "Ingredients"),
           Column(
             children: [
-              for (String ings in widget.meal.ingredients)
+              for (String ings in meal.ingredients)
                 Text(
                   ings,
                   style: Theme.of(context).textTheme.bodySmall!.copyWith(
@@ -53,7 +46,7 @@ class _MealDetailsScreenState extends ConsumerState<MealDetailsScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 8),
             child: Column(
               children: [
-                for (String step in widget.meal.steps)
+                for (String step in meal.steps)
                   Text(
                     step,
                     textAlign: TextAlign.center,

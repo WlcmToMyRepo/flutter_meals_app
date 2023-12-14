@@ -1,21 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:meals/providers/filters_provider.dart';
 
-class FilterScreen extends StatefulWidget {
-  final Map<Filter, bool> filter;
-  const FilterScreen({super.key, required this.filter});
+class FilterScreen extends ConsumerStatefulWidget {
+  const FilterScreen({super.key});
 
   @override
-  State<FilterScreen> createState() => _FilterScreenState();
+  ConsumerState<FilterScreen> createState() => _FilterScreenState();
 }
 
-enum Filter {
-  glutenFree,
-  lactosFree,
-  vegetarian,
-  vegan,
-}
-
-class _FilterScreenState extends State<FilterScreen> {
+class _FilterScreenState extends ConsumerState<FilterScreen> {
   bool _glutenFreeFilterSet = false;
   bool _lactosFreeFilterSet = false;
   bool _vegFilterSet = false;
@@ -24,10 +18,11 @@ class _FilterScreenState extends State<FilterScreen> {
   @override
   void initState() {
     super.initState();
-    _glutenFreeFilterSet = widget.filter[Filter.glutenFree]!;
-    _lactosFreeFilterSet = widget.filter[Filter.lactosFree]!;
-    _vegFilterSet = widget.filter[Filter.vegetarian]!;
-    _veganFreeFilterSet = widget.filter[Filter.vegan]!;
+    final activeFilter = ref.read(filtersProvider);
+    _glutenFreeFilterSet = activeFilter[Filter.glutenFree]!;
+    _lactosFreeFilterSet = activeFilter[Filter.lactosFree]!;
+    _vegFilterSet = activeFilter[Filter.vegetarian]!;
+    _veganFreeFilterSet = activeFilter[Filter.vegan]!;
   }
 
   @override
@@ -49,12 +44,13 @@ class _FilterScreenState extends State<FilterScreen> {
       ),
       body: WillPopScope(
         onWillPop: () async {
-          Navigator.of(context).pop({
+          ref.read(filtersProvider.notifier).setFiltersFromMap({
             Filter.glutenFree: _glutenFreeFilterSet,
             Filter.lactosFree: _lactosFreeFilterSet,
             Filter.vegetarian: _vegFilterSet,
             Filter.vegan: _veganFreeFilterSet,
           });
+
           return true;
         },
         child: Column(

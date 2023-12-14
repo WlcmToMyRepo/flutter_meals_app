@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:meals/data/dummy_data.dart';
 import 'package:meals/models/meal.dart';
 import 'package:meals/providers/favourite_meal_provider.dart';
+import 'package:meals/providers/filters_provider.dart';
 import 'package:meals/screens/categories.dart';
 import 'package:meals/screens/filter.dart';
 import 'package:meals/screens/meals.dart';
@@ -29,21 +30,16 @@ class TabsScreen extends ConsumerStatefulWidget {
 class _TabsScreenState extends ConsumerState<TabsScreen> {
   int _selectedIndex = 0;
   String selectedTitle = "Categories";
-  Map<Filter, bool> selectedFilter = kMealsFilter;
 
   void selectScreen(String screen) async {
     if (screen == "meals") {
       Navigator.pop(context);
     } else if (screen == 'filter') {
       Navigator.pop(context);
-      final result = await Navigator.of(context).push<Map<Filter, bool>>(
-          MaterialPageRoute(
-              builder: (context) => FilterScreen(filter: selectedFilter)));
-
-      print("RESULT >>>>>> $result");
+      await Navigator.of(context).push<Map<Filter, bool>>(
+          MaterialPageRoute(builder: (context) => const FilterScreen()));
 
       //assign result to selectedFilters
-      selectedFilter = result ?? kMealsFilter;
       setState(() {});
     }
   }
@@ -64,6 +60,7 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
 
   //this method wil lapply filter on dummyMeals and return filtered meals
   List<Meal> get getFilteredMeals {
+    final selectedFilter = ref.watch(filtersProvider);
     final meals = ref.watch(mealsProvider);
     return meals.where((meal) {
       //need to filter gluten free
