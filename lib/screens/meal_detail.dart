@@ -63,32 +63,24 @@ class MealDetailScreen extends ConsumerWidget {
   }
 }
 
-class FavButton extends ConsumerStatefulWidget {
+class FavButton extends ConsumerWidget {
   final Meal meal;
-
   const FavButton({super.key, required this.meal});
 
   @override
-  ConsumerState<FavButton> createState() => _FavButtonState();
-}
-
-class _FavButtonState extends ConsumerState<FavButton> {
-  @override
-  Widget build(BuildContext context) {
-    bool isFavourite =
-        ref.read(favouriteMealProvider.notifier).mealIsFavourite(widget.meal);
+  Widget build(BuildContext context, WidgetRef ref) {
+    bool isFavourite = ref.watch(favouriteMealProvider).contains(meal);
     return IconButton(
-      onPressed: () {
-        ref.read(favouriteMealProvider.notifier).toggleFavourite(widget.meal);
-        isFavourite = ref
-            .watch(favouriteMealProvider.notifier)
-            .mealIsFavourite(widget.meal);
-        setState(() {});
-      },
-      icon: Icon(
-        Icons.star,
-        color: isFavourite ? Colors.yellow : Colors.white,
-      ),
-    );
+        onPressed: () {
+          ref.read(favouriteMealProvider.notifier).toggleFavourite(meal);
+        },
+        icon: isFavourite
+            ? const Icon(
+                Icons.star,
+                color: Colors.yellow,
+              )
+            : const Icon(
+                Icons.star_border,
+              ));
   }
 }

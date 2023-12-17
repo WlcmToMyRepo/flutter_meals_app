@@ -60,24 +60,7 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
 
   //this method wil lapply filter on dummyMeals and return filtered meals
   List<Meal> get getFilteredMeals {
-    final selectedFilter = ref.watch(filtersProvider);
-    final meals = ref.watch(mealsProvider);
-    return meals.where((meal) {
-      //need to filter gluten free
-      if (selectedFilter[Filter.glutenFree]! && !meal.isGlutenFree) {
-        return false;
-      }
-      if (selectedFilter[Filter.vegetarian]! && !meal.isVegetarian) {
-        return false;
-      }
-      if (selectedFilter[Filter.vegan]! && !meal.isVegan) {
-        return false;
-      }
-      if (selectedFilter[Filter.lactosFree]! && !meal.isLactoseFree) {
-        return false;
-      }
-      return true;
-    }).toList();
+    return ref.watch(filteredMealsProvider);
   }
 
   @override
