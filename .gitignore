@@ -41,7 +41,12 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
-
+android
+ios
+linux
+macos
+windows
+web
 
 #project related ignoring experiment folder
 /lib/experiment/
