@@ -46,6 +46,7 @@ ios
 linux
 macos
 windows
+web
 
 #project related ignoring experiment folder
 /lib/experiment/
