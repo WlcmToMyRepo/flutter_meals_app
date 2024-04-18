@@ -8,7 +8,6 @@ import 'package:meals/screens/categories.dart';
 import 'package:meals/screens/filter.dart';
 import 'package:meals/screens/meals.dart';
 import 'package:meals/widgets/app_drawer.dart';
-import 'package:meals/providers/meal_provider.dart';
 
 //default filter
 
@@ -95,7 +94,7 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
             label: 'Categories',
           ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.favorite), label: 'Favorite'),
+              icon: Icon(Icons.favorite), label: 'Favorites'),
         ],
       ),
     );
